@@ -1,0 +1,153 @@
+{% extends "compartilhado/base.html" %}
+
+{% block head %}
+  {{ super() }}
+  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='estilo-tarefas-principal.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bibliotecas/jqcron/jqCron.css')}}">
+  <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script
+  src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"
+  integrity="sha256-xI/qyl9vpwWFOXz7+x/9WkG5j/SVnSw21viy8fWwbeE="
+  crossorigin="anonymous"></script>
+
+  <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='bibliotecas/jqcron/jqCron.js')}}"></script>
+  <script type="text/javascript" charset="utf-8" src="{{ url_for('static', filename='bibliotecas/jqcron/jqCron.pt-br.js')}}"></script>  
+
+{% endblock %}
+
+{% block content %}
+<script>
+  var lista_tipo_acao='{{form.id_tipo_acao|string}}';
+  var lista_tipo_etapa='{{form.id_tipo_etapa|string}}';
+  var valor_cron='{{form.cron_agendamento.data|string}}';
+  
+  
+</script>
+    <h1 class="titulo-tarefa">Tarefa</h1>
+
+    <form method="POST" action="/tarefa">
+
+      {{ form.csrf_token }}
+    
+        {{ form.id }}
+    
+    <div class="container">
+      {% for field, errors in form.errors.items() %}
+          <p class="form-text  ">
+              {{ ', '.join(errors) }}
+          </p>
+      {% endfor %}
+      
+      
+       
+        
+
+        <div class="row mb-4 " >
+          
+              {{ form.nome.label(class="form-label col-form-label col-4 offset-md-2") }}    {{ form.nome(class="form-control  col") }}
+        
+      </div>
+
+
+        <div class="row mb-4">
+          <!-- 
+              DOCS ON: https://www.jqueryscript.net/time-clock/schedule-cron-job.html
+              https://gitlab.com/arnapou/jqcron
+          -->
+          <div class="cronagendamento"></div>
+           {{ form.cron_agendamento(class="cronagendamento-input") }}
+          
+        </div>
+      
+        <div class="row mb-4">
+          
+{{ form.destino.label(class="form-label col-form-label col-4 offset-md-2") }}    {{ form.destino(class="form-control col") }}
+        </div>
+      
+        <div class="row mb-4">
+          
+{{ form.id_fonte.label(class="form-label col-form-label col-4 offset-md-2") }}    {{ form.id_fonte(class="form-control col") }} <a class="col-2 btn btn-success" href="/fontes">Adicionar Fonte</a>
+        </div>
+      
+      
+      </div>
+      
+      
+      <div id="etapas-descricao">
+      <p class="etapas">Etapas:</p>
+      <a href="javascript:void(0)" class="btn btn-success adicionarEtapa"><span class="glyphicon glyphicon glyphicon-plus" aria-hidden="true"></span> Adicionar Etapa</a>
+     
+      
+      <div class="form-group etapas-group etapas-group-copy" data-z="0" style="display:none;" >
+        <button class="btn btn-direction btn-lg" data-dir="up">&#8593;</button>
+        <button class="btn btn-direction btn-lg" data-dir="down">&#8595;</button>
+        {{form.id_tipo_acao.label}}{{form.id_tipo_acao}}
+        {{form.id_tipo_etapa.label}}{{form.id_tipo_etapa}}
+        <input id="etapa_0" name="etapa"  type="text" value="">
+        <a href="javascript:void(0)" class="btn btn-danger removerEtapa"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remover</a>
+        <hr>
+      </div>
+      
+      <ul >
+
+
+        {% if form.etapas|length > 0 %}
+          {% for nested in form.etapas %}
+            <li id="etapas_ul_{{loop.index}}" class="form-group etapas-group" data-z="{{loop.index}}">
+              <button class="btn btn-direction btn-lg" data-dir="up">&#8593;</button>
+              <button class="btn btn-direction btn-lg" data-dir="down">&#8595;</button>
+              {{ nested.object_data.id_etapa}}
+              <label for="id_tipo_acao">Tipo de Ação</label>
+              {{ nested.object_data.id_tipo_acao}} 
+              
+              <label for="id_tipo_etapa">Tipo de Etapa</label>
+              {{ nested.object_data.id_tipo_etapa }} 
+              {{ nested.object_data.etapa }}
+              <a href="javascript:void(0)" class="btn btn-danger removerEtapa"><span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span> Remover</a>
+              <hr>
+            </li>
+            
+          {% endfor %}
+        {% endif %}
+        
+        
+      <div class="btns">
+
+        {% if form.id.data is not none %}
+          <input  class="btn btn-dark btn-rounded" type="submit" value="Alterar tarefa">
+          <a href="/tarefa/{{form.id.data}}/delete/"  class="btn btn-dark btn-rounded">Remover tarefa</a>
+        {% else %}
+          <input  class="btn btn-dark btn-rounded" type="submit" value="Criar tarefa">
+        {% endif %}
+
+        
+      </div>   
+    </div>
+    
+  </form>
+    
+  
+</div>
+
+
+
+    
+        
+            
+        
+      
+
+
+
+
+
+
+  
+
+
+<script type="text/javascript" src="{{ url_for('static', filename='tarefas-principal.js')}}"></script>
+
+{% endblock %}
+

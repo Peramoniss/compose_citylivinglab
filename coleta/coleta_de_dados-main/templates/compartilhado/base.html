@@ -1,0 +1,72 @@
+
+<html>
+    <head>
+        {% block head %}
+        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        
+        
+      <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+      
+      
+      
+      {% endblock %}
+    </head>
+    <body>
+      
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/">Knowledge Cities - Data Collection Automation</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                  
+                  {% if not current_user.is_authenticated %}
+                   <!-- Hi {{ current_user.name }}!-->
+                  <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/tarefas">Tarefas</a>
+                  </li>
+                    {% if current_user.nivel == 1 %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="/usuarios">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/fontes">Fontes</a>
+                    </li>
+
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tipos
+                          </a>
+                          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/tiposacoes">Ações</a></li>
+                            <li><a class="dropdown-item" href="/tiposetapas">Etapas</a></li>
+                            
+                          </ul>
+                        </li>
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="/niveis">Níveis</a>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                      <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                  {% endif %}
+                  
+                </ul>
+              </div>
+            </div>
+          </nav>
+          {% block content %}{% endblock %}
+    </body>
+    </html>

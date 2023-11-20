@@ -1,0 +1,252 @@
+<po-page-default
+  p-title="Detalhes"
+  [p-actions]="pageActions">
+
+    <ng-container *ngIf="dataSource">
+
+        <po-list-view
+            [p-items]="[{title:'Fonte de dados'}]"
+            p-property-title="title">
+            <ng-template p-list-view-detail-template let-item [p-show-detail]="defaultCardVisibility">
+                <div class="po-row">
+                    <po-info
+                        class="po-md-6"
+                        p-label="Nome"
+                        [p-value]="dataSource.description">
+                    </po-info>
+                    <po-info
+                        class="po-md-2"
+                        p-label="Periodo"
+                        p-value="{{ dataSource.period | periodPipe }}">
+                    </po-info> 
+                    <po-info *ngIf="(dataSource.period == 'M')"
+                        class="po-md-2"
+                        p-label="Mês"
+                        p-value="{{ dataSource.datePeriod | monthPeriod }}">
+                    </po-info>   
+                    <po-info 
+                        class="po-md-2"
+                        p-label="Ano"
+                        p-value="{{ dataSource.datePeriod | date:'yyyy' }}">
+                    </po-info>   
+                    <po-info
+                        class="po-md-6"
+                        p-label="Diretório"
+                        [p-value]="dataSource.directory">
+                    </po-info>                 
+
+                    <po-info
+                        class="po-md-2"
+                        p-label="Tipo do arquivo"
+                        [p-value]="dataSource.fileType">
+                    </po-info>  
+                    <po-info
+                        class="po-md-2"
+                        p-label="Separador"
+                        [p-value]="dataSource.separator">
+                    </po-info> 
+                    <po-info
+                        class="po-md-2"
+                        p-label="Campo cidade do arquivo"
+                        [p-value]="dataSource.cityField">
+                    </po-info> 
+                    <po-info
+                        class="po-md-8"
+                        p-label="Link"
+                        [p-value]="dataSource.webSite">
+                    </po-info>  
+                </div>
+            </ng-template>
+        </po-list-view>
+
+        <po-list-view
+            [p-items]="[{title:'De para'}]"
+            p-property-title="title"
+            [p-actions]="listIndicatorsFieldActions">
+            <ng-template p-list-view-detail-template let-item [p-show-detail]="defaultCardVisibility">
+                <div class="po-row">
+                    <po-table class="po-md-12"
+                        p-sort="false"
+                        p-striped="true"   
+                        [p-actions]="tableActions"
+                        [p-columns]="tableColumns"
+                        [p-items]="indicatorsFieldList"
+                        [p-loading]="isWaiting">
+                    </po-table> 
+                </div>
+            </ng-template>
+        </po-list-view>
+
+    </ng-container>
+
+</po-page-default>
+
+<po-modal
+	#addIndicatorsFieldModal
+	[p-title]="this.addIndicatorsFielTitle()"
+    [p-primary-action]="saveIndicatorsFieldAction"
+    [p-secondary-action]="closeIndicatorsFieldAction">
+
+    <div class="po-row">
+        <po-select
+            class="po-lg-3"
+            p-label="Tipo do Campo do arquivo"
+            [(ngModel)]="indicatorsField.typeField"
+            [p-options]="typeFieldOptions"
+            p-required>
+        </po-select>
+        <po-input *ngIf="indicatorsField.typeField == 'N'"
+          name="field"
+          class="po-md-9"
+          p-label="Campo do arquivo"
+          [(ngModel)]="indicatorsField.field">
+        </po-input>
+    </div>
+    <div *ngIf="indicatorsField.typeField == 'EXP'">
+        <po-container class="po-lg-12">
+            <div class="po-row">
+                <po-info 
+                    class="po-md-11"
+                    p-small="false"
+                    p-orientation="PoInfoOrientation.Vertical"
+                    p-value="Campos do arquivo usados na expressão:" >
+                </po-info>
+                <po-button  style="margin-bottom:10px"
+                    p-icon="po-icon po-icon-plus"
+                    p-label=""
+                    (p-click)="addCalculationField()">
+                </po-button>
+            </div>
+            <div *ngIf="this.showCalculationField">
+                <div class="po-row">
+                    <po-input
+                        name="field"
+                        class="po-md-9"
+                        p-label="Campo do arquivo"
+                        [(ngModel)]="calculationField.field">
+                    </po-input>
+                    <po-button
+                        class="po-xl-3 po-lg-3 po-md-3 po-sm-3 po-mt-4 inline-button-xl inline-button-lg inline-button-md"
+                        p-icon="po-icon po-icon-ok"
+                        p-label="Salvar"
+                        (p-click)="saveCalculationField()">
+                    </po-button>
+                </div>
+            </div>
+            <div class="po-row">
+                <po-disclaimer-group 
+                    class="po-md-12"
+                    p-hide-remove-all="true"
+                    [p-disclaimers]="fieldCalculationDisclaimer" 
+                    (p-remove)="removefieldCalculationDisclaimer()"> 
+                </po-disclaimer-group>
+            </div>
+        </po-container>
+        
+        <div class="po-row">
+            <po-info
+                p-orientation="PoInfoOrientation.Vertical"
+                p-value="As seguintes operações aritméticas são suportadas: +, -, *, /, **,%, // (python engine) junto com as seguintes operações booleanas: | (or), & (and), and ~ (not). Usar sempre a sintaxe df['campo'] para cada campo do arquivo usado na expressão. Os campos utilizados na expressão devem ser cadastrados no card acima." >
+            </po-info>
+        </div>
+        <div class="po-row">
+            <po-code-editor
+                class="po-md-12"
+                [(ngModel)]="indicatorsField.field"
+                p-height="150"
+                p-language="python"
+                p-theme="vs-dark">
+            </po-code-editor>
+        </div>
+    </div>
+    <div class="po-row">
+        <po-input
+          name="description"
+          class="po-md-6"
+          p-label="Descrição"
+          [(ngModel)]="indicatorsField.description">
+        </po-input>
+    </div>
+    <div class="po-row">
+        <po-select
+            class="po-lg-12"
+            p-label="Sistema de Capital"
+            [(ngModel)]="category"
+            [p-options]="categoryOptions"
+            (p-change)="changeCategory(category)"
+            p-required>
+        </po-select>
+    </div>
+    <div class="po-row">
+        <po-select
+            class="po-lg-12"
+            p-label="Indicador"
+            [(ngModel)]="indicatorsField.indicatorCode"
+            [p-options]="indicatorsOptions"
+            [p-disabled]="isDisableIndicator"
+            p-required>
+        </po-select>
+    </div>
+
+</po-modal>
+
+<div class="po-row" style="width: 120vw">
+<po-modal
+	#addFiltersIndicatorsFieldModal
+	[p-title]="addFiltersIndicatorsFielTitle"
+    [p-primary-action]="closeFiltersIndicatorsFieldAction">
+    <po-list-view
+    [p-items]="[{title:this.filterTitle}]"
+    p-property-title="title"
+    [p-actions]="listFilterIndicatorsFieldActions">
+    <ng-template p-list-view-content-template let-item >
+        <div *ngIf="this.showEditFilter">
+            <div class="po-row">
+                <po-input
+                name="fieldFilter"
+                class="po-md-9"
+                p-label="Campo do arquivo"
+                [(ngModel)]="filterIndicatorsField.fieldFilter">
+                </po-input>
+                <po-select 
+                    p-required
+                    class="po-md-3"
+                    name="logicalOperator"
+                    [(ngModel)]="filterIndicatorsField.logicalOperator"
+                    [p-options]="operatorLogicalTypeOptions"
+                    p-label="Operador">
+                </po-select>
+            </div>
+            <div class="po-row">
+                <po-input
+                    name="valueFilter"
+                    class="po-md-9"
+                    p-label="Informação a ser filtrada"
+                    [(ngModel)]="filterIndicatorsField.valueFilter">
+                </po-input>
+                <po-select 
+                    p-required
+                    class="po-md-3"
+                    name="filterType"
+                    [(ngModel)]="filterIndicatorsField.filterType"
+                    [p-options]="typeValueTypeOptions"
+                    p-label="Tipo de dado">
+                </po-select>
+            </div>
+        </div>
+        </ng-template>
+    </po-list-view>
+
+    <div class="po-row" style="margin-top:10px">
+        <po-table class="po-md-12"
+            p-sort="false"
+            p-striped="true"   
+            [p-actions]="filtertableActions"
+            [p-columns]="filterTableColumns"
+            [p-items]="filterIndicatorsFieldList"
+            [p-loading]="isWaitingFilter">
+        </po-table> 
+    </div>
+
+</po-modal>
+</div>

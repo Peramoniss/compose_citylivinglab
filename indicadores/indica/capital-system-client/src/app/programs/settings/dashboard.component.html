@@ -1,0 +1,37 @@
+<po-page-default
+  p-title="Configurar"
+  [p-actions]="pageActions">
+
+
+  <div class="po-row">
+    <po-input
+      name="description"
+      class="po-md-6"
+      p-label="Caminho para importar as Categorias de Capital"
+      [(ngModel)]="capitalfileDirectory">
+    </po-input>
+    
+  </div>
+  <div class="po-row">
+    <po-button p-label="Importar Sistema de Capitais " (p-click)="onClick()"> </po-button>
+  </div>
+
+  <hr>
+
+  <div class="po-row">
+    <po-input
+      name="description"
+      class="po-md-6"
+      p-label="Caminho para importar as Categorias de Capital"
+      [(ngModel)]="indicatorfileDirectory">
+    </po-input>
+    
+  </div>
+  <div class="po-row">
+    <po-button p-label="Importar Indicadores" (p-click)="onClick()"> </po-button>
+  </div>
+
+
+
+
+</po-page-default>

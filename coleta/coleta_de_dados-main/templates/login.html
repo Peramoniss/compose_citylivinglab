@@ -1,0 +1,23 @@
+{% extends "compartilhado/base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='estilo-tarefas-principal.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='login.css')}}">
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="/login">
+    {{ form.csrf_token }}
+
+    {% for mensagem_erro in get_flashed_messages() %}
+      <h3>{{ mensagem_erro }}</h3>
+    {% endfor %}
+
+    {{ form.email.label }} {{ form.email(size=20) }}
+    <br>
+    {{ form.senha.label }} {{ form.senha(size=20) }}
+    <br>
+    <input type="submit" value="Enviar">
+</form>
+{% endblock %}

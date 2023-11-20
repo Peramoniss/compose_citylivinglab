@@ -1,0 +1,44 @@
+{% extends "compartilhado/base.html" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "compartilhado/tabela.html" %}  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style-table.css')}}">
+{% endblock %}
+
+
+  
+
+{% block content %}
+    
+     <div class="container-fluid">
+    <table id="tiposetapas">
+        <a class="right btn btn-success" href="/tipoetapa">Adicionar tipoetapa</a>
+        <thead>
+          <tr><th class="sections">Id</th><th>Nome</th><th>Ações</th></tr>       </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    
+      
+    
+<script>
+  var tiposetapas={{tiposetapas|tojson}};
+  console.log(tiposetapas);
+  var targets = [{
+            "sTitle":"Nome"
+          , "aTargets": [ "sections" ]
+        },{
+      "aTargets": [ 2 ]
+      , "bSortable": false
+      , "mRender": function ( data, type, full )  {
+        return  '<a href="tipoetapa/'+ full["id"] +'">Editar</a> | <a href="tipoetapa/'+ full["id"] +'/delete"> Remover</a>';
+      }}];
+          
+  cabecalho = ["id","nome",""];
+  tabelaDatatable("#tiposetapas",tiposetapas, cabecalho,targets);
+  
+;
+</script>
+{% endblock %}

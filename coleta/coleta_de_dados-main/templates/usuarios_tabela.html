@@ -1,0 +1,43 @@
+{% extends "compartilhado/base.html" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "compartilhado/tabela.html" %}  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style-table.css')}}">
+{% endblock %}
+
+
+  
+
+{% block content %}
+    
+     <div class="container-fluid">
+    <table id="usuarios">
+        <a class="right btn btn-success" href="/usuario">Adicionar Usuario</a>
+        <thead>
+          <tr><th class="sections">Id</th><th>Nome </th><th>Email</th><th>Nível</th><th>Ações</th></tr>       </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    
+    
+<script>
+  var usuarios={{usuarios|tojson}};
+  console.log(usuarios);
+  var targets = [{
+            "sTitle":"Nome"
+          , "aTargets": [ "sections" ]
+        },{
+      "aTargets": [ 4 ]
+      , "bSortable": false
+      , "mRender": function ( data, type, full )  {
+        return  '<a href="usuario/'+ full["id"] +'">Editar</a> | <a href="usuario/'+ full["id"] +'/delete"> Remover</a>';
+      }}];
+          
+  cabecalho = ["id","nome","email","nivel",""];
+  tabelaDatatable("#usuarios",usuarios, cabecalho,targets);
+  
+;
+</script>
+{% endblock %}

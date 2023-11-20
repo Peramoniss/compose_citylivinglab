@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  banco:
+    image: banco:v1
+    environment:
+      MYSQL_ROOT_PASSWORD: ucs
+      MYSQL_DATABASE: capitalsystem
+    ports:
+      - "3306:3306"
+  
+  combined-server:
+    image: combined-server:v1
+    environment:
+      MYSQL_HOST: banco
+      MYSQL_ROOT_PASSWORD: ucs
+      MYSQL_DATABASE: capitalsystem
+    ports:
+      - "4200:4200"
+    depends_on:
+      - banco

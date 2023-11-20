@@ -1,0 +1,183 @@
+body{
+
+/* color:white; */
+background-color:rgba(255, 255, 255, 0.863);
+
+
+}
+
+.navbar-brand{
+  margin-right: 320px;
+}
+
+section{
+    text-align: center;
+}
+p{
+    text-align: center;
+    display:block;
+    
+    
+    }
+
+.titulo-tarefa{
+    margin-right: auto;
+    margin-left:auto;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 150px;
+    height: 75px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.329);
+    border: 5px  rgba(0, 0, 0, 0.685);
+    background-color: rgba(0, 0, 0, 0.685);
+    border-radius: 10px;
+    color: white;
+}
+
+  form{
+    text-align:right;
+    margin:8px;
+    padding:5px;
+      
+  }
+
+li.form-group{
+  box-shadow:5px 5px 5px 2px rgba(0, 0, 0, 0.329) ;
+}
+
+.etapas{
+      text-align: left;
+      margin-left: 10px;
+      font-size: 30px;
+      font-weight: bold;
+      background-color:rgba(255, 255, 255, 0.863);
+      color:rgba(0, 0, 0, 0.685);
+      
+  }
+.container-fluid{
+    width: 100%;
+    height: 55px;
+
+}
+/*
+button.navbar-toogler{
+height:50px;
+margin:0;
+border:0;
+}
+.nav-item{
+  margin:0;
+  background-color:var(--bs-body-color);
+  height:20px;
+  padding:0px;
+  line-height: 24px;
+  font-weight: var(--bs-body-font-weight);
+}
+
+.nav-link{
+  padding:0;
+  font-size: 16px;
+  margin-right:5px;
+  margin-left:5px;
+}
+
+#navbarNav{
+  width:100%;
+  border:0;
+  
+}
+
+ul.navbar-nav{
+    margin:0; 
+    background-color:rgb(80, 79, 79) ;
+    color:white;
+  
+}
+.navbar-brand{
+  padding-right:180px;
+}
+
+li { margin-top:10px;
+  list-style-type:none;
+  padding: 5px 20px;
+  background-color:rgba(255, 255, 255, 0.863);
+} 
+*/
+
+li {
+  list-style-type: none;
+}
+label{
+  color:rgba(0, 0, 0, 0.685);
+}
+
+
+.info {
+  background:#cecece;
+  width: 50%;
+  height: 200px;
+  padding: 10px;
+  font-size:20px;
+  margin:0 10px;}
+
+a.col-2 btn btn-sucess{
+  box-shadow:5px 5px 2px rgba(0, 0, 0, 0.329);
+}
+
+  .btn-direction{
+    background-color: black;
+    border-color: white;
+    color:white;
+  }
+
+ 
+  
+span{
+  font-size:medium ;
+  font-weight: bold;
+}
+
+
+div.btns{
+ display:flex;
+ justify-content: flex-end;
+ margin:20px;
+ 
+ 
+}
+
+
+.navbar{
+  width: 100%;
+  height: 55px;
+  padding: 0;
+}
+
+input.form-control{
+  border:1px solid rgba(0, 0, 0, 0.281);
+  box-shadow: 5px 5px 5px 2px rgba(0, 0, 0, 0.329);
+}
+
+.col-form-label{
+  color:rgba(0, 0, 0, 0.685);
+}
+
+#id_fonte{
+  border:1px solid rgba(0, 0, 0, 0.281);
+  box-shadow:5px 5px 5px 2px rgba(0, 0, 0, 0.329);
+}
+
+.btn{
+  margin:10px;
+  box-shadow:5px 5px 5px 2px rgba(0, 0, 0, 0.329);
+
+}
+
+
+
+
+.jqCron-selector-title{
+  color:black;
+}

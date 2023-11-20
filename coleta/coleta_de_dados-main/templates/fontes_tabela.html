@@ -1,0 +1,43 @@
+{% extends "compartilhado/base.html" %}
+
+{% block head %}
+  {{ super() }}
+  {% include "compartilhado/tabela.html" %}  
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style-table.css')}}">
+{% endblock %}
+
+
+  
+
+{% block content %}
+    
+     <div class="container-fluid">
+    <table id="fontes">
+        <a class="right btn btn-success" href="/fonte">Adicionar Fonte</a>
+        <thead>
+          <tr><th class="sections">Id</th><th>Nome</th><th>Endereço</th><th>Ações</th></tr>       </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+    
+    
+<script>
+  var fontes={{fontes|tojson}};
+  console.log(fontes);
+  var targets = [{
+            "sTitle":"Nome"
+          , "aTargets": [ "sections" ]
+        },{
+      "aTargets": [ 3 ]
+      , "bSortable": false
+      , "mRender": function ( data, type, full )  {
+        return  '<a href="fonte/'+ full["id"] +'">Editar</a> | <a href="fonte/'+ full["id"] +'/delete"> Remover</a>';
+      }}];
+          
+  cabecalho = ["id","nome","endereco", ""];
+  tabelaDatatable("#fontes",fontes, cabecalho,targets);
+  
+;
+</script>
+{% endblock %}

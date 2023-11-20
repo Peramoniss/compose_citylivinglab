@@ -1,0 +1,38 @@
+form{
+    text-align: center;
+}
+
+label{
+    margin: 10px;
+}
+
+input{
+    box-shadow:5px 5px 2px rgba(0, 0, 0, 0.329);
+}
+
+.navbar-brand{
+display: flex;
+}
+
+.nav-link{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+#navbarNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    
+}
+
+@media (min-width:990px){
+.navbar-nav{
+    display: none;
+
+
+}
+}

@@ -1,0 +1,13 @@
+:root {
+    --color-primary: black;
+    --color-secondary: black;
+    --color-tertiary: white;
+}
+
+.po-table-link{
+  font-weight: bolder;
+}
+
+.po-disclaimer .po-disclaimer-label{
+  background-color: #f4d069;
+}

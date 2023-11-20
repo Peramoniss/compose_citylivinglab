@@ -1,0 +1,14 @@
+{% extends "compartilhado/base.html" %}
+
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='estilo-tarefas-principal.css')}}">
+    
+{% endblock %}
+
+{% block content %}
+    <h3 class="titulo">Automatização para a coleta de dados da aplicação Cidades do Conhecimento</h3>
+    <p>Este software foi criado para a coleta automatizada de dados, de diferentes fontes de
+        dados, para a Plataforma de Cidades do Conhecimento.</p>
+{% endblock %}

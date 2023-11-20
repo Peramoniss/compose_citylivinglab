@@ -1,0 +1,86 @@
+<po-page-edit 
+  p-title="Mapear Fonte de dados"
+  (p-cancel)="cancel()"
+  (p-save)="save()">
+  <po-loading-overlay
+    p-screen-lock="true"
+    [p-text]="loadingStatus.message"
+    [hidden]="!loadingStatus.active">
+  </po-loading-overlay>
+  <form #f="ngForm">
+    <div class="po-row">
+      <po-input
+        name="description"
+        class="po-md-6"
+        p-label="Nome"
+        [(ngModel)]="dataSource.description">
+      </po-input>
+    </div>
+    <div class="po-row">
+      <po-input
+        name="webSite"
+        class="po-md-8"
+        p-label="Link"
+        [(ngModel)]="dataSource.webSite">
+      </po-input>
+    </div>
+    <div class="po-row">
+      <po-input
+        name="directory"
+        class="po-md-8"
+        p-label="Diretório"
+        [(ngModel)]="dataSource.directory">
+      </po-input>
+    </div>
+    <div class="po-row">
+      <po-select
+        p-required
+        class="po-md-2"
+        name="dataSource.period"
+        [(ngModel)]="dataSource.period"
+        [p-options]="periodTypeOptions"
+        p-label="Periodo">
+      </po-select>
+      <po-select *ngIf="(dataSource.period == 'M')"
+        p-required
+        class="po-md-2"
+        name="month"
+        [(ngModel)]="month"
+        [p-options]="periodMonthOptions"
+        p-label="Mês">
+      </po-select>
+      <po-input
+        name="year"
+        class="po-md-1"
+        p-label="Ano"
+        p-mask="9999"
+        p-minlength="4"
+        [(ngModel)]="year">
+      </po-input>
+    </div>
+    <div class="po-row">
+    <po-select
+      p-required
+      class="po-md-2"
+      name="fileType"
+      [(ngModel)]="dataSource.fileType"
+      [p-options]="fileTypeOptions"
+      p-label="Tipo de arquivo">
+    </po-select>
+      <po-input
+        name="separator"
+        class="po-md-1"
+        p-label="Separador"
+        [(ngModel)]="dataSource.separator">
+      </po-input>
+    </div>
+    <div class="po-row">
+      <po-input
+        name="cityField"
+        class="po-md-2"
+        p-label="Campo cidade do arquivo"
+        [(ngModel)]="dataSource.cityField">
+      </po-input>
+    </div>
+  </form>
+</po-page-edit>

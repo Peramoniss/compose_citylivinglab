@@ -1,0 +1,42 @@
+<po-page-list
+    [p-title]="pageTitle"
+    [p-actions]="listActions"
+    [p-filter]="filterSettings">
+    <po-table
+        p-sort="false"
+        p-striped="true"   
+        [p-actions]="tableActions"
+        [p-columns]="tableColumns"
+        p-hide-select-all=true
+        p-selectable="true"
+        [p-items]="objectList"
+        [p-show-more-disabled]="!hasNext"
+        (p-show-more)="showMoreFunction()"
+        [p-literals]="tableMessage"
+        [p-loading]="isWaiting"
+        (p-selected)="sumTotal($event)"
+        (p-unselected)="decreaseTotal($event)">
+    </po-table> 
+    
+</po-page-list>
+
+<po-modal
+    [p-title]="advancedFilterTitle"
+    [p-primary-action]="applyFilterAction"
+    [p-secondary-action]="closeModalAction">
+
+
+</po-modal>
+
+<po-modal
+	#copyFileBaseModal
+	p-title="Copiar estrutura"
+    [p-primary-action]="saveIndicatorsFieldAction"
+    [p-secondary-action]="closeIndicatorsFieldAction">
+
+    <span>Copiar estrutura selecionada ? 
+    </span>
+    <span>Será criado uma nova estrutura com o nome COPIA.
+    </span>
+
+</po-modal>

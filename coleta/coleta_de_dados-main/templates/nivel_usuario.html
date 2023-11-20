@@ -1,0 +1,23 @@
+{% extends "compartilhado/base.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='estilo-tarefas-principal.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h1 class="titulo-tarefa">Nível </h1>
+    <form method="POST" action="/nivel">
+        {{ form.csrf_token }}
+        <div class="row mb-4 " >
+            {{ form.nivel.label(class="form-label col-form-label col-4 offset-md-2") }} {{ form.nivel(size=50, class="form-control  col") }}
+        </div>
+        
+        <div class="row mb-4 " >
+            <input type="submit" class="btn btn-dark btn-rounded" value="Enviar">
+        </div>
+    </form>
+</div>
+{% endblock %}

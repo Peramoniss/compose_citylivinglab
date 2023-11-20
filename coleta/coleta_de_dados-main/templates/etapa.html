@@ -1,0 +1,23 @@
+{% extends "/comapartilhado/base\.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='estilo-tarefas-principal.css')}}">
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="/etapa">
+    {{ form.csrf_token }}
+    
+    {{ form.id }}
+
+    {{ form.id_tipo_acao.label }}    {{ form.id_tipo_acao }}
+    <br>
+    {{ form.id_tipo_etapa.label }}    {{ form.id_tipo_etapa }}
+    <br>
+    {{ form.etapa.label }} {{ form.etapa(size=150) }}
+    <br>
+    
+    <input type="submit" value="Go">
+</form>
+{% endblock %}
