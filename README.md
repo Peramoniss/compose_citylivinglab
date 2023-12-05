@@ -15,11 +15,11 @@ Siga os passos abaixo para executar o projeto localmente:
 1. **Clone este repositório:**
 
    ```bash
-   git clone https://github.com/hrodrigues1/compose-citylivinglabs.git
+   git clone https://github.com/hrodrigues1/compose-citylivinglab.git
 
 2. **Navegue até o diretório do projeto:** 
 
-    cd compose-citylivinglabs
+    cd compose-citylivinglab
 
 3. **Execute o comando Docker Compose:** 
 
@@ -30,6 +30,10 @@ Isso iniciará os contêineres Docker. Você pode acessar as ferramentas em:
 
 Ferramenta de Coleta de Dados: http://localhost:5001
 Ferramenta de Integração de Dados: http://localhost:4200
+
+### Volume Compartilhado
+
+O volume compartilhado entre as ferramentas e o host está disponível em `C:/TCC`.
 
 **Credenciais Padrão**
 
