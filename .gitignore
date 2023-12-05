@@ -1,0 +1,24 @@
+# Arquivos de build Angular
+/dist/
+/node_modules/
+
+# Arquivo de configuração local Angular
+/src/environments/environment.ts
+
+# Arquivo de cache Angular
+/.idea/
+/.vscode/
+
+# Byte-compiled / arquivo compilado Python
+__pycache__/
+*.pyc
+
+# Virtual environment / Ambiente virtual Python
+venv/
+env/
+
+# Arquivos de log Python
+*.log
+
+# Arquivo de configuração local Python
+local_settings.py

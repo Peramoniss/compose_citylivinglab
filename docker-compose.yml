@@ -2,7 +2,7 @@ version: '3'
 
 services:
   banco:
-    image: banco:v21
+    image: henriquercxs/banco_citylivinglab:v1
     container_name: testebanco
     networks:
       - minha_rede
@@ -10,8 +10,22 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ucs
+  indicadores:
+    image: henriquercxs/indicadores_citylivinglab:v1
+    container_name: indicadores_cliente_d
+    networks:
+      - minha_rede
+    ports:
+      - "4200:4200"
+      - "5000:5000"
+    depends_on:
+      - banco
+    volumes:
+      - c:/TCC:/app/dados
+    environment:
+      - TZ=America/Sao_Paulo
   coleta:
-    image: coleta:v21
+    image: henriquercxs/coleta_citylivinglab:v1
     container_name: testecoleta
     networks:
       - minha_rede
@@ -22,24 +36,11 @@ services:
       - banco
     volumes:
       - c:/TCC:/app/dados
-  indicadores:
-    image: indicadores:v30
-    container_name: indicadores
-    networks:
-      - minha_rede
-    ports:
-      - "4200:4200"
-      - "5000:5000"
-    depends_on:
-      - banco
-    volumes:
-      - c:/TCC:/app/dados
-    
+    environment:
+      - TZ=America/Sao_Paulo    
   nginx:
-    image: henriquercxs/citylivinglab:nginx
+    image: henriquercxs/proxy_citylivinglab:v1
     container_name: meu_nginx
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     networks:
       - minha_rede
     ports:
@@ -48,7 +49,7 @@ services:
       - banco
       - coleta
       - indicadores
-      
+
 networks:
   minha_rede:
     driver: bridge
