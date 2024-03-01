@@ -12,7 +12,7 @@ isError = False
 #Read data source characteristics
 try:
 	dados = utils.getFileBaseIntegration()
-	logger.info('Leitura dos Fontes de dados para Processamento')
+	logger.info('Leitura dos Fontes de dados para Processamento...')
 except:
 	logger.error('Erro na leitura dos Fontes de dados para Processamento')
 
@@ -190,6 +190,7 @@ if len(dados)> 0:
       try:
         cursor = mydb.cursor()
         sql = "INSERT INTO `values`(codeCity, codeIndicator, year, month, value, link, dateIntegration) SELECT codeCity, codeIndicator, year, month, value, link, %s FROM tmp_values"
+        v_now = datetime.now()
         data = (v_now,) 
         cursor.execute(sql,data)
         logger.info('Integração para o banco oficial finalizada')
@@ -197,7 +198,7 @@ if len(dados)> 0:
         mydb.commit()
         logger.info('StatusOk')
       except Exception as e:
-        logger.error('Erro na copia de dados para o banco oficial') 
+        logger.error('Erro na copia de dados para o banco oficial ;-;') 
         logger.error(e)
         mydb.rollback()
         utils.setStatusError(v_code)
